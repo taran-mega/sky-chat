@@ -87,6 +87,8 @@ async function sendToBackend(){
         const data = await response.json();
         console.log(JSON.stringify(data, null, 2));
         
+        addUserToScreen(data.message)
+        
         // Check Success
         if(data.success){
         
@@ -94,7 +96,7 @@ async function sendToBackend(){
             for (let item of data){
         
                 // Add to Screen
-                addUserToScreen(item);
+                addUserToScreen(item.username);
             }
         }
     }
