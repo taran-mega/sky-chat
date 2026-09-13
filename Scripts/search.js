@@ -38,33 +38,44 @@ async function makeConnection(id, btn){
     // Make Controller
     const controller = new AbortController();
     
-    // Make Request
-    const response = await fetch(
-        `${API_URL}/connect`,
-        {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                target_id: target_id
-            }),
-            signal: controller.signal
+    // Try to fetch
+    try{
+    
+        // Make Request
+        const response = await fetch(
+            `${API_URL}/connect`,
+            {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    target_id: target_id
+                }),
+                signal: controller.signal
+            }
+        );
+        
+        // Convert Response into JSON
+        const data = await response.json();
+        
+        // If Connected
+        if (data.success){
+        
+            // Change btn Content
+            btn.textContent = "Connected";
         }
-    );
-    
-    // Convert Response into JSON
-    const data = await response.json();
-    
-    // If Connected
-    if (data.success){
-    
-        // Change btn Content
-        btn.textContent = "Connected";
+        else{
+        
+            // Change btn Content
+            btn.textContent = "+ Connect";
+        }
     }
-    else{
     
+    // Catch Error(s)
+    catch(error){
+        
         // Change btn Content
         btn.textContent = "+ Connect";
     }
