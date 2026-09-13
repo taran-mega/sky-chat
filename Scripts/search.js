@@ -85,6 +85,8 @@ async function sendToBackend(){
         
         // Convert Response into JSON
         const data = await response.json();
+
+        addUserToScreen(JSON.stringify(data));
         
         // Check Success
         if(data.success){
