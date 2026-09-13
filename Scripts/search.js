@@ -5,6 +5,9 @@ const resultArea = document.getElementById("results");
 // Request(s) Controller
 let controller = null;
 
+// URLs
+const API_URL = "https://sky-chat-backend-bl9g.onrender.com";
+
 // Function for Start/End loading animation
 function toggleLoading(type = "start"){
     
@@ -26,8 +29,49 @@ function toggleLoading(type = "start"){
     }
 }
 
+// Function for Making Connection
+async function makeConnection(id, btn){
+    
+    // Change btn Content
+    btn.textContent = "Connecting";
+    
+    // Make Controller
+    const controller = new AbortController();
+    
+    // Make Request
+    const response = await fetch(
+        `${API_URL}/connect`,
+        {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                target_id: target_id
+            }),
+            signal: controller.signal
+        }
+    );
+    
+    // Convert Response into JSON
+    const data = await response.json();
+    
+    // If Connected
+    if (data.success){
+    
+        // Change btn Content
+        btn.textContent = "Connected";
+    }
+    else{
+    
+        // Change btn Content
+        btn.textContent = "+ Connect";
+    }
+}
+
 // Function to adding User on screen
-function addUserToScreen(username){
+function addUserToScreen(id, username, is_connected){
     
     // Make MainElement
     const div = document.createElement("div");
@@ -38,10 +82,22 @@ function addUserToScreen(username){
     
     // Make Right Button
     const btn = document.createElement("button");
-    btn.textContent = "+ Connect"
     
     // Add Data into Left Content
     leftDiv.textContent = username;
+    
+    // Check User Connection
+    if (is_connected){
+        btn.textContent = "Connected";
+    }
+    else{
+        btn.textContent = "+ Connect";
+    }
+    
+    // Add Event Listener to button
+    btn.addEventListener("click", () => {
+        makeConnection(id, btn);
+    })
     
     // Attach Result with Results Screen
     div.appendChild(leftDiv);
@@ -51,9 +107,6 @@ function addUserToScreen(username){
 
 // Function for sending request to backend
 async function sendToBackend(){
-    
-    // URLs
-    const API_URL = "https://sky-chat-backend-bl9g.onrender.com";
     
     // Cancel Previous Request
     if(controller){controller.abort();}
@@ -93,7 +146,7 @@ async function sendToBackend(){
             for (let item of data.content){
         
                 // Add to Screen
-                addUserToScreen(item.username);
+                addUserToScreen(item.id, item.username, item.is_connected);
             }
         }
     }
