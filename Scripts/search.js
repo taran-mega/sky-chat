@@ -51,7 +51,7 @@ async function makeConnection(id, btn){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    target_id: target_id
+                    target_id: id
                 }),
                 signal: controller.signal
             }
