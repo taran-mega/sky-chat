@@ -77,7 +77,8 @@ async function makeConnection(id, btn){
     catch(error){
         
         // Change btn Content
-        btn.textContent = "+ Connect";
+        resultArea.textContent = error;
+        
     }
 }
 
