@@ -85,9 +85,6 @@ async function sendToBackend(){
         
         // Convert Response into JSON
         const data = await response.json();
-        console.log(JSON.stringify(data, null, 2));
-        
-        addUserToScreen(JSON.stringify(data))
         
         // Check Success
         if(data.success){
@@ -140,6 +137,3 @@ window.addEventListener("keydown", (event) => {
         sendRequest();
     }
 });
-
-// Add Dumpty User
-addUserToScreen("Dump User");
