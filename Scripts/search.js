@@ -85,14 +85,12 @@ async function sendToBackend(){
         
         // Convert Response into JSON
         const data = await response.json();
-
-        addUserToScreen(JSON.stringify(data));
         
         // Check Success
         if(data.success){
         
             // For Every item in Response
-            for (let item of data){
+            for (let item of data.content){
         
                 // Add to Screen
                 addUserToScreen(item.username);
