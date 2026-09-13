@@ -1,5 +1,9 @@
-body{
+html, body{
     margin: 0;
+    height: 100%;
+}
+
+body{
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -7,8 +11,10 @@ body{
 
 #page{
     flex: 1;
-    border: none;
+    min-height: 0;
     width: 100%;
+    
+    border: none;
     background: black;
 }
 
