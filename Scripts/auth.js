@@ -128,7 +128,7 @@ async function sendRequest(){
     if (response){
         
         // Redirect
-        window.location.href = "/panel.html"
+        window.location.href = "panel.html"
     }
 }
 
@@ -160,8 +160,6 @@ async function checkAuth(){
     // End Loading
     loadingScreen.style.display = "none";
     container.style.display = "flex";
-    
-    console.log(data);
     
     // Check Success
     if (data.success){
