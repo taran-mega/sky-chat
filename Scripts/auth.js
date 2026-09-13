@@ -69,6 +69,7 @@ async function sendToBackend(){
         `${API_URL}/auth`, {
             
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -155,11 +156,13 @@ async function checkAuth(){
     );
     
     // Convert Response into JSON
-    const data = await response.text();
+    const data = await response.json();
     
     // End Loading
     loadingScreen.style.display = "none";
     container.style.display = "flex";
+    
+    console.log(data);
     
     // Check Success
     if (data.success){
