@@ -30,10 +30,12 @@ function toggleLoading(type = "start"){
 }
 
 // Function for Making Connection
-async function makeConnection(id, btn){
+async function makeConnection(id, btn, is_connected){
     
     // Change btn Content
-    btn.textContent = "Connecting";
+    if (is_connected){
+        btn.textContent = "Connecting";
+    }
     
     // Make Controller
     const controller = new AbortController();
@@ -108,7 +110,7 @@ function addUserToScreen(id, username, is_connected){
     
     // Add Event Listener to button
     btn.addEventListener("click", () => {
-        makeConnection(id, btn);
+        makeConnection(id, btn, is_connected);
     })
     
     // Attach Result with Results Screen
